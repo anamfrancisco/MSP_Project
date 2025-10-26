@@ -1,6 +1,6 @@
 export default function Layout({ children }) {
   return (
-    <div style={{ padding: '2rem', fontFamily: 'Arial' }}>
+    <div style={{ padding: '2rem', fontFamily: 'Arial, sans-serif' }}>
       <nav style={{ marginBottom: '2rem' }}>
         <a href="/register" style={{ marginRight: '1rem' }}>Register</a>
         <a href="/add-contact" style={{ marginRight: '1rem' }}>Add Contact</a>

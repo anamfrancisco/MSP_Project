@@ -55,63 +55,110 @@ export default function Register() {
 
   return (
     <Layout>
-      <h1>Register</h1>
-      <form onSubmit={step === 3 ? handleSubmit : handleNext}>
-        {step === 1 && (
-          <>
-            <input 
-              type="text" 
-              name="firstName" 
-              placeholder="First Name" 
-              value={formData.firstName} 
-              onChange={handleChange} 
-            />
-            <div style={{ color: 'red' }}>{errors.firstName}</div>
-            <br />
-            <input 
-              type="text" 
-              name="lastName" 
-              placeholder="Last Name" 
-              value={formData.lastName} 
-              onChange={handleChange} 
-            />
-            <div style={{ color: 'red' }}>{errors.lastName}</div>
-            <br />
-          </>
-        )}
+      <div style={{
+        maxWidth: '500px',
+        margin: '0 auto',
+        padding: '2rem',
+        backgroundColor: '#f9f9f9',
+        borderRadius: '10px',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+      }}>
+        <h1 style={{ textAlign: 'center', color: '#0070f3' }}>Register</h1>
+        <form onSubmit={step === 3 ? handleSubmit : handleNext} style={{ marginTop: '1.5rem' }}>
+          {step === 1 && (
+            <>
+              <label style={{ display: 'block', marginBottom: '0.5rem' }}>First Name</label>
+              <input 
+                type="text" 
+                name="firstName" 
+                placeholder="First Name" 
+                value={formData.firstName} 
+                onChange={handleChange} 
+                style={{
+                  width: '100%',
+                  padding: '0.75rem',
+                  borderRadius: '6px',
+                  border: '1px solid #ccc',
+                  marginBottom: '0.5rem'
+                }}
+              />
+              <div style={{ color: 'red', marginBottom: '1rem' }}>{errors.firstName}</div>
 
-        {step === 2 && (
-          <>
-            <input 
-              type="email" 
-              name="email" 
-              placeholder="Email" 
-              value={formData.email} 
-              onChange={handleChange} 
-            />
-            <div style={{ color: 'red' }}>{errors.email}</div>
-            <br />
-          </>
-        )}
+              <label style={{ display: 'block', marginBottom: '0.5rem' }}>Last Name</label>
+              <input 
+                type="text" 
+                name="lastName" 
+                placeholder="Last Name" 
+                value={formData.lastName} 
+                onChange={handleChange} 
+                style={{
+                  width: '100%',
+                  padding: '0.75rem',
+                  borderRadius: '6px',
+                  border: '1px solid #ccc',
+                  marginBottom: '0.5rem'
+                }}
+              />
+              <div style={{ color: 'red', marginBottom: '1rem' }}>{errors.lastName}</div>
+            </>
+          )}
 
-        {step === 3 && (
-          <>
-            <input 
-              type="password" 
-              name="password" 
-              placeholder="Password" 
-              value={formData.password} 
-              onChange={handleChange} 
-            />
-            <div style={{ color: 'red' }}>{errors.password}</div>
-            <br />
-          </>
-        )}
+          {step === 2 && (
+            <>
+              <label style={{ display: 'block', marginBottom: '0.5rem' }}>Email</label>
+              <input 
+                type="email" 
+                name="email" 
+                placeholder="Email" 
+                value={formData.email} 
+                onChange={handleChange} 
+                style={{
+                  width: '100%',
+                  padding: '0.75rem',
+                  borderRadius: '6px',
+                  border: '1px solid #ccc',
+                  marginBottom: '0.5rem'
+                }}
+              />
+              <div style={{ color: 'red', marginBottom: '1rem' }}>{errors.email}</div>
+            </>
+          )}
 
-        <button type="submit">
-          {step === 3 ? 'Submit' : 'Next'}
-        </button>
-      </form>
+          {step === 3 && (
+            <>
+              <label style={{ display: 'block', marginBottom: '0.5rem' }}>Password</label>
+              <input 
+                type="password" 
+                name="password" 
+                placeholder="Password" 
+                value={formData.password} 
+                onChange={handleChange} 
+                style={{
+                  width: '100%',
+                  padding: '0.75rem',
+                  borderRadius: '6px',
+                  border: '1px solid #ccc',
+                  marginBottom: '0.5rem'
+                }}
+              />
+              <div style={{ color: 'red', marginBottom: '1rem' }}>{errors.password}</div>
+            </>
+          )}
+
+          <button type="submit" style={{
+            width: '100%',
+            padding: '0.75rem',
+            backgroundColor: '#0070f3',
+            color: '#fff',
+            border: 'none',
+            borderRadius: '6px',
+            fontWeight: 'bold',
+            cursor: 'pointer'
+          }}>
+            {step === 3 ? 'Submit' : 'Next'}
+          </button>
+        </form>
+      </div>
     </Layout>
   );
 }
