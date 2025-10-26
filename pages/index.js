@@ -17,7 +17,7 @@ export default function Home() {
           marginBottom: '1rem',
           color: '#0070f3'
         }}>
-          Welcome to My Social Prototype
+          Welcome MyLinkedin Prototype
         </h1>
         <p style={{
           fontSize: '1.1rem',
