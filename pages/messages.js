@@ -3,19 +3,28 @@ import { useState } from 'react';
 
 export default function Messages() {
   const [message, setMessage] = useState('');
+  const [recipient, setRecipient] = useState('');
   const [sentMessages, setSentMessages] = useState([]);
 
-  const handleChange = (e) => {
+  const handleMessageChange = (e) => {
     setMessage(e.target.value);
+  };
+
+  const handleRecipientChange = (e) => {
+    setRecipient(e.target.value);
   };
 
   const handleSend = (e) => {
     e.preventDefault();
-    if (message.trim() === '') return;
-    setSentMessages([...sentMessages, message]);
-    console.log('Message sent:', message);
+    if (message.trim() === '' || recipient.trim() === '') return;
+    const newMessage = { recipient, content: message };
+    setSentMessages([...sentMessages, newMessage]);
+    console.log('Message sent:', newMessage);
     setMessage('');
+    setRecipient('');
   };
+
+  const recipients = ['Alice', 'Bob', 'Charlie', 'Dana'];
 
   return (
     <Layout>
@@ -27,25 +36,49 @@ export default function Messages() {
         borderRadius: '10px',
         boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
       }}>
-        <h1 style={{ textAlign: 'center', color: '#0070f3' }}>Messages</h1>
-        <form onSubmit={handleSend} style={{ display: 'flex', gap: '10px', marginTop: '1.5rem' }}>
-          <input
-            type="text"
-            placeholder="Type your message"
-            value={message}
-            onChange={handleChange}
+        <h1 style={{ textAlign: 'center', color: '#0070f3' }}>Send a Message</h1>
+        <form onSubmit={handleSend} style={{ marginTop: '1.5rem' }}>
+          <label style={{ display: 'block', marginBottom: '0.5rem' }}>Choose Recipient</label>
+          <select
+            value={recipient}
+            onChange={handleRecipientChange}
             style={{
-              flex: 1,
+              width: '100%',
               padding: '0.75rem',
               borderRadius: '6px',
               border: '1px solid #ccc',
+              marginBottom: '1rem',
               fontSize: '1rem'
             }}
+          >
+            <option value="">Select a person</option>
+            {recipients.map((name) => (
+              <option key={name} value={name}>{name}</option>
+            ))}
+          </select>
+
+          <label style={{ display: 'block', marginBottom: '0.5rem' }}>Your Message</label>
+          <textarea
+            rows="4"
+            placeholder="Type your message"
+            value={message}
+            onChange={handleMessageChange}
+            style={{
+              width: '100%',
+              padding: '0.75rem',
+              borderRadius: '6px',
+              border: '1px solid #ccc',
+              fontSize: '1rem',
+              resize: 'none',
+              marginBottom: '1rem'
+            }}
           />
+
           <button
             type="submit"
             style={{
-              padding: '0.75rem 1.25rem',
+              width: '100%',
+              padding: '0.75rem',
               backgroundColor: '#0070f3',
               color: '#fff',
               border: 'none',
@@ -69,7 +102,7 @@ export default function Messages() {
                 borderRadius: '6px',
                 boxShadow: '0 1px 4px rgba(0,0,0,0.05)'
               }}>
-                {msg}
+                <strong>To {msg.recipient}:</strong> {msg.content}
               </li>
             ))}
           </ul>
