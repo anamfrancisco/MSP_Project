@@ -1,13 +1,23 @@
 import Layout from '../components/Layout';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
 
 export default function Notifications() {
-  const [notifications, setNotifications] = useState([
-    'Alice liked your post',
-    'Bob commented: "Nice work!"',
-    'Charlie sent you a message',
-    'Dana added you as a contact'
-  ]);
+  const [notifications, setNotifications] = useState([]);
+  useEffect(() => {
+    const fetchNotifications = async () => {
+      try {
+        const res = await fetch('http://localhost:4000/notifications');
+        const data = await res.json();
+        setNotifications(data);
+      } catch (err) {
+        console.error('Error fetching notifications:', err);
+      }
+    };
+
+    fetchNotifications();
+  }, []);
+
 
   return (
     <Layout>

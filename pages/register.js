@@ -45,13 +45,28 @@ export default function Register() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateStep()) {
-      console.log('User registered:', formData);
-      alert('Registration complete!');
+      try {
+        const res = await fetch('http://localhost:4000/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+
+        if (res.ok) {
+          alert('Registration complete!');
+          console.log('User registered:', formData);
+        } else {
+          console.error('Failed to register');
+        }
+      } catch (err) {
+        console.error('Error:', err);
+      }
     }
   };
+
 
   return (
     <Layout>

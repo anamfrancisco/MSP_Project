@@ -14,15 +14,31 @@ export default function Messages() {
     setRecipient(e.target.value);
   };
 
-  const handleSend = (e) => {
+  const handleSend = async (e) => {
     e.preventDefault();
     if (message.trim() === '' || recipient.trim() === '') return;
+
     const newMessage = { recipient, content: message };
-    setSentMessages([...sentMessages, newMessage]);
-    console.log('Message sent:', newMessage);
-    setMessage('');
-    setRecipient('');
+
+    try {
+      const res = await fetch('http://localhost:4000/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newMessage)
+      });
+
+      if (res.ok) {
+        setSentMessages([...sentMessages, newMessage]);
+        setMessage('');
+        setRecipient('');
+      } else {
+        console.error('Failed to send message');
+      }
+    } catch (err) {
+      console.error('Error:', err);
+    }
   };
+
 
   const recipients = ['Alice', 'Bob', 'Charlie', 'Dana'];
 

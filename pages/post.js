@@ -9,13 +9,31 @@ export default function Post() {
     setContent(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (content.trim() === '') return;
-    console.log('Post submitted:', content);
-    setSubmitted(true);
-    setContent('');
+
+    const post = { author: 'Ana', content };
+
+    try {
+      const res = await fetch('http://localhost:4000/posts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(post)
+      });
+
+      if (res.ok) {
+        console.log('Post submitted:', post);
+        setSubmitted(true);
+        setContent('');
+      } else {
+        console.error('Failed to submit post');
+      }
+    } catch (err) {
+      console.error('Error:', err);
+    }
   };
+
 
   return (
     <Layout>

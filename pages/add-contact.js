@@ -28,14 +28,29 @@ export default function AddContact() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validate()) {
-      console.log('Contact added:', contact);
-      setSubmitted(true);
-      setContact({ name: '', email: '' });
+      try {
+        const res = await fetch('http://localhost:4000/contacts', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(contact)
+        });
+
+        if (res.ok) {
+          console.log('Contact added:', contact);
+          setSubmitted(true);
+          setContact({ name: '', email: '' });
+        } else {
+          console.error('Failed to add contact');
+        }
+      } catch (err) {
+        console.error('Error:', err);
+      }
     }
   };
+
 
   return (
     <Layout>
